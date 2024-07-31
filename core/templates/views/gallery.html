@@ -1,0 +1,25 @@
+<div class="container mt-5">
+    <h1 class="fw-light text-center mb-4">Thumbnail Gallery</h1>
+    <div class="row">
+        {% for image in images %}
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="position-relative container-images">
+                    <img src="/media/{{ image.photo }}" class="img-fluid img-thumbnail image-preview" alt="{{ image.photo }}">
+                    <div class="image-overlay"></div>
+                    <button type="button" class="btn btn-danger btn-sm delete-image"
+                        hx-post="/master/gallery/{{ image.id }}/delete"
+                        hx-trigger="confirmed"
+                        onClick="Swal.fire({title: 'Confirm', text:'Do you want to continue?', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, delete it!'}).then((result)=>{
+                            if(result.isConfirmed){
+                                htmx.trigger(this, 'confirmed');
+                            } 
+                        })">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% load static %}
+<script src="{% static 'admin/js/gallery.js' %}"></script>

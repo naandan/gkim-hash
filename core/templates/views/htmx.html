@@ -1,0 +1,14 @@
+<script src="https://unpkg.com/htmx.org@1.6.0/dist/htmx.min.js"></script>
+<script src="https://unpkg.com/hyperscript@2.1.1"></script>
+
+
+<script>
+    const url = new URL(window.location.href);
+    const pathParts = url.pathname.split('/');
+    const desiredValue = pathParts[pathParts.length - 3];
+
+    const htmxDiv = document.getElementById('htmx');
+    htmxDiv.setAttribute('hx-get', `/master/gallery/${desiredValue}/images`);
+</script>
+
+<div id="htmx" hx-trigger="load"></div>

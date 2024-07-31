@@ -1,0 +1,20 @@
+{% if success_message %}
+    <div class="alert-container">
+        <div class="alert alert-success">{{ success_message }}, <br> ID RFID: {{ rfid_card.id_rfid }}, Master User: {{ rfid_card.masteruser }}</div>
+    </div>
+{% endif %}
+<form id="add-data-form" method="POST" hx-post="/management/rfidcard/register/" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-target="#modal-content" hx-swap="innerHTML">
+    {% for field in form %}
+        <div class="form-group">
+            {% if field.errors %}
+                <div class="text-danger text-start">{{ field.errors }}</div>
+            {% endif %}
+            {{ field.label_tag }}
+            {{ field }}
+        </div>
+    {% endfor %}
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        <button type="submit" class="btn btn-primary">Simpan Data</button>
+    </div>
+</form>

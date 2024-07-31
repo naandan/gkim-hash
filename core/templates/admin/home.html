@@ -1,0 +1,85 @@
+<div class="container-fluid">
+    <section id="minimal-statistics" class="ps-4">
+      <div class="row">
+        <div class="col-12 mt-3 mb-3">
+          <h4 class="text-uppercase">Banyaknya data yang terdaftar dan Kehadiran</h4>
+          <small>Berikut merupakan tampilan untuk memperlihatkan data yang terdaftar dan kehadiran 7 hari kelebakang.</small>
+        </div>
+      </div>
+      <div class="row">
+        {% for content_name, content_queryset in contents.items %}
+            <div class="col-xl-4 col-sm-6 col-12 py-2"> 
+            <div id="card-home" class="card">
+                <div class="card-content">
+                <div class="card-body">
+                    <div class="media d-flex justify-content-between">
+                    <div class="align-self-center order-1">
+                        <i class="fa-regular fa-user fs-1"></i>
+                    </div>
+                    <div class="media-body text-right">
+                        <span>{{content_name}}</span>
+                        <h3 class="fs-1">{{content_queryset.count}}</h3>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        {% endfor %}
+      </div>
+      {% load custom_filters %}
+
+    <div class="row">
+        <div class="col-xl-4 col-sm-6 col-12 py-2">
+            <div class="card background-card-home">
+                <div class="card-content px-3">
+                    {% for presence,date, type ,count in presences %}
+                    <div class="card card-inner my-3">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <h3 class="fw-bold">{{ presence }}</h3>
+                                    <p>{{ date }}</p>
+                                    <p>Jumlah {{ type }} yang hadir:</p>
+                                    <div class="d-flex justify-content-center mt-2 text-white gap-2">
+                                        <h1 class="text-center">{{ count }}</h1>
+                                        <i class="fa-regular fa-user fs-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% for category in categories %}
+        <div class="col-xl-4 col-sm-6 col-12 py-2">
+            <div class="card background-card-home">
+                <div class="card-content px-3">
+                    {% for date, presences in daily_presences.items %}
+                    <div class="card card-inner my-3">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <h3 class="fw-bold">{{ category }}</h3>
+                                    <p>{{ date }}</p>
+                                    <p>Jumlah {{ category }} yang hadir:</p>
+                                    <div class="d-flex justify-content-center mt-2 text-white gap-2">
+                                        <h1 class="text-center">{{ presences|index:category }}</h1>  
+                                        <i class="fa-regular fa-user fs-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    </section>
+  </div>

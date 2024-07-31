@@ -1,0 +1,21 @@
+{% load i18n static %}
+
+<div class="title-tree mt-4 ms-4">
+    <a id="refresh-tree"> <i class="fa-solid fa-arrow-left"></i> Kembali </a>
+    <div class="body mt-2">
+        <h4>{{priode.name}}</h4>
+        <p>{{priode.start_date}} - {{priode.end_date}}</p>
+    </div>
+</div>
+<div id="container-tree">
+    <div id="tree"></div>
+</div>
+
+<script>
+    var treeData = [
+    {% for tree in trees %}
+        { name: '{{ tree.name }}', masteruser: '{{ tree.masteruser }}', parent: '{{ tree.parent }}' }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+    ];
+    TreeData(treeData, "#tree");
+</script>
